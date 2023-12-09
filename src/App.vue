@@ -35,7 +35,7 @@ export default {
         }}
       </h1>
       <el-button @click="trigger = !trigger">
-        {{ trigger ? "去试普通组件" : "去试Element组件" }}
+        {{ trigger ? "去试element组件" : "去试vue-easy-table组件" }}
       </el-button>
       <div v-if="trigger">
         <BigTable></BigTable>
