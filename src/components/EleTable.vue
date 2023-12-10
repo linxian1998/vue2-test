@@ -9,7 +9,6 @@
 <script>
 import data from "../assets/bigData.json";
 const { data: list } = data;
-console.log(list);
 export default {
   data() {
     return {

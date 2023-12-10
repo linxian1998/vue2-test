@@ -1,16 +1,47 @@
 <script>
 import BigTable from "./components/BigTable.vue";
+import BigTablePaga from "./components/BigTablePaga.vue";
 import EleTable from "./components/EleTable.vue";
+import VueVritualScroll from "./components/VueVirtualScrollTable.vue";
+import VituralTable from "./test/VituralTable.vue";
+import data from "./assets/bigData.json";
+import MixEleVv from "./test/MixEleVv.vue";
+const { data: list } = data;
 export default {
   components: {
     BigTable,
     EleTable,
+    BigTablePaga,
+    VueVritualScroll,
+    VituralTable,
+    MixEleVv,
   },
   data: function () {
     return {
-      trigger: true,
+      change: "ve",
+      count: 0,
+      tableData: [...list, ...list, ...list],
+      options: [
+        {
+          value: "ve",
+          label: "vue-easy-table",
+        },
+        {
+          value: "ele",
+          label: "element-ui table",
+        },
+        {
+          value: "vue-virtual-scroll",
+          label: "vue-virtual-scroll 下自己做的table",
+        },
+      ],
     };
   },
+  methods:{
+    changeSelect(val){
+      this.change = val;
+    }
+  }
 };
 </script>
 
@@ -25,24 +56,43 @@ export default {
         height="125"
       />
 
-      <div class="wrapper"></div>
+      <div class="wrapper">
+        <el-button type="primary" @click="count++"> 点我 </el-button>
+        {{ count }}
+      </div>
     </header>
 
     <main>
       <h1>
         {{
-          trigger ? "这个是vue-easy-table组件加上虚拟滑动" : "这个是Element组件"
+          change == "ve"
+            ? "这个是vue-easy-table组件加上虚拟滑动"
+            : change == "ele"
+            ? "这个是Element组件"
+            : "这个是vue-virtual-scroll组件"
         }}
       </h1>
-      <el-button @click="trigger = !trigger">
-        {{ trigger ? "去试element组件" : "去试vue-easy-table组件" }}
-      </el-button>
-      <div v-if="trigger">
+      <el-select v-model="change" placeholder="请选择" >
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
+        </el-option>
+      </el-select>
+      <div v-if="change == 've'">
         <BigTable></BigTable>
+      </div>
+      <div v-else-if="change == 'vue-virtual-scroll'">
+        <VueVritualScroll :items="tableData"></VueVritualScroll>
       </div>
       <div v-else>
         <EleTable></EleTable>
       </div>
+      <!-- <BigTablePaga></BigTablePaga> -->
+      <!-- <VituralTable></VituralTable> -->
+      <!-- <MixEleVv></MixEleVv> -->
     </main>
   </div>
 </template>

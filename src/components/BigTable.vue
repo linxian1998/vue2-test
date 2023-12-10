@@ -1,23 +1,21 @@
 <template>
   <ve-table
-    style="word-break: break-all"
     :columns="columns"
     :table-data="tableData"
     :max-height="500"
     :virtual-scroll-option="virtualScrollOption"
     row-key-field-name="id"
-    fixed-header
+    ref="veTable"
   />
 </template>
 
 <script>
 import data from "../assets/bigData.json";
 const { data: list } = data;
-console.log(list);
 export default {
   data() {
     return {
-      virtualScrollOption: { enable: true },
+      virtualScrollOption: { enable: true, scrolling: this.scrolling },
       columns: [
         { field: "id", key: "a", title: "id", align: "center", width: "20%" },
         { field: "pid", key: "b", title: "pid", align: "left", width: "20% " },
@@ -31,6 +29,9 @@ export default {
       ],
       tableData: [...list, ...list, ...list],
     };
+  },
+  methods: {
+    
   },
 };
 </script>
