@@ -2,7 +2,7 @@
 import BigTable from "./components/BigTable.vue";
 import BigTablePaga from "./components/BigTablePaga.vue";
 import EleTable from "./components/EleTable.vue";
-import VueVritualScroll from "./components/VueVirtualScrollTable.vue";
+import VueVritualScroll from "./components/VueVirtualnew.vue";
 import VituralTable from "./test/VituralTable.vue";
 import data from "./assets/bigData.json";
 import MixEleVv from "./test/MixEleVv.vue";
@@ -37,11 +37,11 @@ export default {
       ],
     };
   },
-  methods:{
-    changeSelect(val){
+  methods: {
+    changeSelect(val) {
       this.change = val;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -72,7 +72,7 @@ export default {
             : "这个是vue-virtual-scroll组件"
         }}
       </h1>
-      <el-select v-model="change" placeholder="请选择" >
+      <el-select v-model="change" placeholder="请选择">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -85,7 +85,11 @@ export default {
         <BigTable></BigTable>
       </div>
       <div v-else-if="change == 'vue-virtual-scroll'">
-        <VueVritualScroll :items="tableData"></VueVritualScroll>
+        <VueVritualScroll :item-height="40" :items="tableData">
+          <template #operations>
+            <el-button type="text">操作</el-button>
+          </template>
+        </VueVritualScroll>
       </div>
       <div v-else>
         <EleTable></EleTable>
